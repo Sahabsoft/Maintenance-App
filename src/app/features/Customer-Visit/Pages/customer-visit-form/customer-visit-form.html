@@ -1,0 +1,47 @@
+<div class="container" dir="rtl">
+  <div class="card">
+    <h2>{{ id ? 'تعديل زيارة' : 'إضافة زيارة' }}</h2>
+
+    <div *ngIf="loading()">جارٍ التحميل...</div>
+    <form *ngIf="!loading()" (ngSubmit)="submit()" class="form">
+    
+      <!-- visitNumber -->
+       <input name="visitNumber" [(ngModel)]="customerVisitRequest.visitNumber"  disabled="true" />       
+      <label>الاسم</label>
+        <input name="name" [(ngModel)]="customerVisitRequest. customerName" required />
+
+      <label>الهاتف</label>
+      <input name="phone" [(ngModel)]="customerVisitRequest.phone" required />
+
+      <label>العنوان</label>
+      <input name="address" [(ngModel)]="customerVisitRequest.address" />
+
+      <!-- VisitType -->
+      <label>نوع الزيارة</label>
+      <select name="visitType" [(ngModel)]="customerVisitRequest.visitType">
+        <option [ngValue]="0">تركيب كاميرات</option>
+        <option [ngValue]="1">صيانة</option>
+        <option [ngValue]="2">معاينة</option>
+        <option [ngValue]="3">تطوير منظومة</option>   
+        <option [ngValue]="4">استشارة</option>     
+      </select>
+  <!-- state -->
+      <label>حالة الزيارة</label>
+      <input name="state" value="{{ stateDisplay(customerVisitRequest.state) }}" disabled="true" />
+<!-- stateStart​,stateSchedule​,stateComplete​,stateCancel​ -->
+        <button (click)="stateStart()">بدء الزيارة</button>
+        <button (click)="stateSchedule()">جدولة الزيارة</button>
+        <button (click)="stateComplete()">إكمال الزيارة</button>
+        <button (click)="stateCancel()">إلغاء الزيارة</button>
+      <label>ملاحظات</label>
+      <textarea name="notes" [(ngModel)]="customerVisitRequest.notes" rows="3"></textarea>
+
+      <div class="actions">
+        <button type="submit" [disabled]="saving()">{{ saving() ? 'جارٍ الحفظ...' : 'حفظ' }}</button>
+        <a routerLink="/ad/customerVisits" class="btn-cancel">إلغاء</a>
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+    </form>
+  </div>
+</div>

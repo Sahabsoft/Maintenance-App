@@ -1,0 +1,201 @@
+<div class="change-status" dir="rtl">
+
+  <div class="card">
+
+    <h2>تغيير حالة الطلب</h2>
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading()">
+      جارٍ تحميل بيانات الطلب...
+    </div>
+
+    <!-- Error -->
+    <div class="error" *ngIf="error() && !loading()">
+      {{ error() }}
+    </div>
+
+    <form
+      *ngIf="!loading()"
+      (ngSubmit)="submit()"
+      class="form"
+    >
+
+      <!-- Current Status -->
+      <div class="current">
+        الحالة الحالية:
+
+        <strong>
+          {{ currentStatus !== null
+            ? getStatusText(currentStatus)
+            : 'غير محددة'
+          }}
+        </strong>
+      </div>
+
+
+      <!-- New Status -->
+      <label for="newStatus">
+        الحالة الجديدة
+      </label>
+
+      <select
+        id="newStatus"
+        name="newStatus"
+        [(ngModel)]="newStatus"
+        [disabled]="saving()"
+      >
+
+        <option [ngValue]="null">
+          -- اختر الحالة --
+        </option>
+
+        <option
+          *ngFor="let s of statuses"
+          [ngValue]="s.value"
+        >
+          {{ s.label }}
+        </option>
+
+      </select>
+
+
+      <!-- Notes -->
+      <label for="notes">
+        ملاحظات
+      </label>
+
+      <textarea
+        id="notes"
+        name="notes"
+        [(ngModel)]="notes"
+        rows="4"
+        placeholder="ملاحظات إضافية (اختياري)"
+        [disabled]="saving()"
+      ></textarea>
+
+
+      <!-- Files -->
+      <label>
+        صور الجهاز
+      </label>
+
+      <div class="photo-actions">
+
+        <!-- Camera -->
+        <label class="photo-btn">
+
+          📷 التقاط صورة
+
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            (change)="onFilesSelected($event)"
+            [disabled]="saving()"
+            hidden
+          />
+
+        </label>
+
+
+        <!-- Gallery -->
+        <label class="photo-btn">
+
+          🖼️ اختيار من المعرض
+
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            (change)="onFilesSelected($event)"
+            [disabled]="saving()"
+            hidden
+          />
+
+        </label>
+
+      </div>
+
+
+      <!-- Selected Files -->
+      <div
+        class="selected-files"
+        *ngIf="files.length > 0"
+      >
+
+        <div
+          class="file-item"
+          *ngFor="let file of files; let i = index"
+        >
+
+          <!-- Image Preview -->
+          <img
+            *ngIf="file.type.startsWith('image/')"
+            class="preview"
+            [src]="getPreviewUrl(file)"
+            [alt]="file.name"
+          />
+
+
+          <!-- File Name -->
+          <span class="file-name">
+            {{ file.name }}
+          </span>
+
+
+          <!-- Remove -->
+          <button
+            type="button"
+            class="remove"
+            (click)="removeFile(i)"
+            [disabled]="saving()"
+            title="حذف الملف"
+          >
+            ×
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+      <div class="actions">
+
+        <button
+          type="submit"
+          [disabled]="saving()"
+        >
+          {{
+            saving()
+              ? 'جارٍ الحفظ...'
+              : 'حفظ التغيير'
+          }}
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="cancel()"
+          [disabled]="saving()"
+        >
+          إلغاء
+        </button>
+
+      </div>
+
+
+      <!-- Error -->
+      <div
+        class="error"
+        *ngIf="error()"
+      >
+        {{ error() }}
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

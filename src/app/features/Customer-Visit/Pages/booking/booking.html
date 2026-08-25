@@ -1,0 +1,427 @@
+<div class="container-fluid p-0" dir="rtl">
+
+  <!-- Hero -->
+  <section class="bg-dark text-white py-5">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <div class="col-lg-6 text-center text-lg-end">
+          <h1 class="display-5 fw-bold mb-3">
+            احمِ منزلك ومنشأتك مع أفضل حلول المراقبة
+          </h1>
+
+          <p class="lead mb-4">
+            تركيب كاميرات • صيانة • معاينة • تطوير أنظمة المراقبة
+          </p>
+
+         <div class="d-flex gap-3 justify-content-center justify-content-lg-start flex-wrap">
+
+  <button
+    class="btn btn-warning btn-lg px-5"
+    (click)="booking.scrollIntoView({behavior:'smooth'})">
+
+    <i class="fa-solid fa-calendar-check me-2"></i>
+    احجز زيارة الآن
+
+  </button>
+
+  <a
+    routerLink="/track-order"
+    class="btn btn-outline-light btn-lg px-5">
+
+    <i class="fa-solid fa-magnifying-glass me-2"></i>
+    متابعة الطلب
+
+  </a>
+
+</div>
+        </div>
+
+        <div class="col-lg-6 text-center mt-4 mt-lg-0">
+          <img
+            src="assets/images/security-camera.png"
+            class="img-fluid"
+            style="max-height:400px">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+
+  <section class="container py-5">
+
+    <div class="text-center mb-5">
+      <h2>لماذا تختارنا ؟</h2>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-md-3">
+        <div class="card h-100 text-center shadow-sm">
+
+          <div class="card-body">
+
+            <h1>⚡</h1>
+
+            <h5>سرعة الاستجابة</h5>
+
+            <p>
+              التواصل خلال دقائق وتحديد موعد الزيارة بسرعة.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card h-100 text-center shadow-sm">
+
+          <div class="card-body">
+
+            <h1>👨‍🔧</h1>
+
+            <h5>فنيون متخصصون</h5>
+
+            <p>
+              خبرة كبيرة في جميع أنظمة كاميرات المراقبة.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card h-100 text-center shadow-sm">
+
+          <div class="card-body">
+
+            <h1>🛡️</h1>
+
+            <h5>ضمان على الخدمة</h5>
+
+            <p>
+              نضمن جودة التنفيذ وخدمة ما بعد البيع.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card h-100 text-center shadow-sm">
+
+          <div class="card-body">
+
+            <h1>💰</h1>
+
+            <h5>أفضل الأسعار</h5>
+
+            <p>
+              أسعار مناسبة مع جودة احترافية.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Steps -->
+
+  <section class="bg-light py-5">
+
+    <div class="container">
+
+      <h2 class="text-center mb-5">
+        خطوات طلب الزيارة
+      </h2>
+
+      <div class="row text-center">
+
+        <div class="col-md-3">
+
+          <h1>1️⃣</h1>
+
+          <h5>املأ الطلب</h5>
+
+        </div>
+
+        <div class="col-md-3">
+
+          <h1>2️⃣</h1>
+
+          <h5>نتواصل معك</h5>
+
+        </div>
+
+        <div class="col-md-3">
+
+          <h1>3️⃣</h1>
+
+          <h5>تحديد الموعد</h5>
+
+        </div>
+
+        <div class="col-md-3">
+
+          <h1>4️⃣</h1>
+
+          <h5>تنفيذ الخدمة</h5>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Booking Form -->
+
+  <section class="container py-5" #booking>
+
+    <div class="row justify-content-center">
+
+      <div class="col-lg-8">
+
+        <div class="card shadow-lg">
+
+          <div class="card-header text-center bg-primary text-white">
+
+            <h3>احجز زيارة</h3>
+
+          </div>
+
+          <div class="card-body">
+
+            <form (ngSubmit)="submit()">
+
+              <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                  <label class="form-label">
+                    الاسم
+                  </label>
+
+                  <input
+                    class="form-control"
+                    name="customerName"
+                    [(ngModel)]="customerVisitRequest.customerName"
+                    required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                  <label class="form-label">
+                    الهاتف
+                  </label>
+
+                  <input
+                    class="form-control"
+                    name="phone"
+                    [(ngModel)]="customerVisitRequest.phone"
+                    required>
+
+                </div>
+
+              </div>
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  العنوان
+                </label>
+
+                <input
+                  class="form-control"
+                  name="address"
+                  [(ngModel)]="customerVisitRequest.address">
+
+              </div>
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  نوع الخدمة
+                </label>
+
+                <select
+                  class="form-select"
+                  name="visitType"
+                  [(ngModel)]="customerVisitRequest.visitType">
+
+                  <option [ngValue]="0">
+                    تركيب كاميرات
+                  </option>
+
+                  <option [ngValue]="1">
+                    صيانة
+                  </option>
+
+                  <option [ngValue]="2">
+                    معاينة
+                  </option>
+
+                  <option [ngValue]="3">
+                    تطوير منظومة
+                  </option>
+
+                  <option [ngValue]="4">
+                    استشارة
+                  </option>
+
+                </select>
+
+              </div>
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  وصف الطلب
+                </label>
+
+                <textarea
+                  rows="5"
+                  class="form-control"
+                  name="notes"
+                  [(ngModel)]="customerVisitRequest.notes"></textarea>
+
+              </div>
+
+              <div class="d-grid">
+
+                <button
+                  class="btn btn-success btn-lg"
+                  [disabled]="saving()">
+
+                  {{ saving() ? 'جارٍ إرسال الطلب...' : 'إرسال الطلب' }}
+
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Testimonials -->
+
+  <section class="bg-light py-5">
+
+    <div class="container">
+
+      <h2 class="text-center mb-5">
+        آراء العملاء
+      </h2>
+
+      <div class="row">
+
+        <div class="col-md-4">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              ⭐⭐⭐⭐⭐
+
+              <p class="mt-3">
+                خدمة ممتازة وتم التركيب في نفس اليوم.
+              </p>
+
+              <strong>
+                محمد أحمد
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              ⭐⭐⭐⭐⭐
+
+              <p class="mt-3">
+                فنيون محترفون وأسعار مناسبة.
+              </p>
+
+              <strong>
+                أحمد علي
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              ⭐⭐⭐⭐⭐
+
+              <p class="mt-3">
+                سرعة في الصيانة والدعم الفني.
+              </p>
+
+              <strong>
+                محمود حسن
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+
+  <footer class="bg-dark text-white text-center py-4">
+
+    <h4>
+      حياة الأمان كاميرات المراقبة
+    </h4>
+
+    <p class="mb-1">
+      📞 01000000000
+    </p>
+
+    <p class="mb-0">
+      جميع الحقوق محفوظة © 2026
+    </p>
+
+  </footer>
+
+</div>

@@ -1,0 +1,14 @@
+<div class="login" dir="rtl">
+	<form (ngSubmit)="submit()" class="login-form">
+		<div class="login-form-title">تسجيل دخول</div>
+		<div class="small-note">استخدم بياناتك للدخول إلى لوحة التحكم</div>
+
+		<label for="username">اسم المستخدم</label>
+		<input id="username" name="username" [(ngModel)]="username" />
+
+		<label for="password">كلمة المرور</label>
+		<input id="password" name="password" type="password" [(ngModel)]="password" />
+
+		<button type="submit">دخول</button>
+	</form>
+</div>

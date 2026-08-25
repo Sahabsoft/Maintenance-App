@@ -1,0 +1,137 @@
+<div class="container" dir="rtl">
+  
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+
+                        
+                        <h2 class="fw-bold mt-3">
+                            متابعة طلب الزيارة
+                        </h2>
+
+                        
+                    </div>
+
+                    <hr>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label class="text-muted">رقم الطلب</label>
+                            <div class="fw-bold fs-5">
+                                 {{customerVisit.visitNumber}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">حالة الطلب</label>
+
+                            <div>
+
+                                <span class="badge bg-primary"
+                                      *ngIf="customerVisit.state==1">
+                                    جديد
+                                </span>
+
+                                <span class="badge bg-info"
+                                      *ngIf="customerVisit.state==2">
+                                    تم الجدولة
+                                </span>
+
+                                <span class="badge bg-warning text-dark"
+                                      *ngIf="customerVisit.state==3">
+                                    قيد التنفيذ
+                                </span>
+
+                                <span class="badge bg-success"
+                                      *ngIf="customerVisit.state==4">
+                                    تم الانتهاء
+                                </span>
+
+                                <span class="badge bg-danger"
+                                      *ngIf="customerVisit.state==5">
+                                    ملغى
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">اسم العميل</label>
+                            <div>{{customerVisit.customerName}}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">رقم الهاتف</label>
+                            <div>{{customerVisit.phone}}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">نوع الزيارة</label>
+                            <div>{{getStateText(customerVisit.state)}}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">تاريخ الطلب</label>
+                            <div>{{customerVisit.createdAt | date:'dd/MM/yyyy hh:mm a'}}</div>
+                        </div>
+                        
+ <div *ngIf="customerVisit.state==2" 
+ class="col-md-6">
+                            <label class="text-muted">تاريخ جدولة الطلب</label>
+                            <div>{{customerVisit.scheduledDate | date:'dd/MM/yyyy hh:mm a'}}</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="text-muted">العنوان</label>
+                            <div>{{customerVisit.address}}</div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="text-muted">ملاحظات</label>
+                            <div>
+                                {{customerVisit.notes || '-'}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-5">
+
+                   
+                    
+
+                    <div class="text-center mt-5">
+
+                            <h3>سجل حالة الزيارة</h3>
+        <ul>
+          <li *ngFor="let log of customerVisit?.customerVisitStateLogs">
+          
+            {{ getStateText(log.oldStatus) }} -> {{ getStateText(log.newStatus) }} -
+               {{ log.createdAt | date: 'short' }}
+            <!-- notes -->
+            <div *ngIf="log.notes"><strong>ملاحظات:</strong> {{ log.notes }}</div>
+          </li>
+        </ul>
+
+        <div style="margin-top: 1rem">
+          <a [routerLink]="['/ad/customerVisits', customerVisit?.id, 'edit']"
+            >تعديل الزيارة</a
+          >
+        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

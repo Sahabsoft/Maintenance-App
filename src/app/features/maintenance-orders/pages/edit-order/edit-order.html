@@ -1,0 +1,34 @@
+<div class="edit-order" dir="rtl">
+  <div class="card">
+    <h2>تعديل طلب الصيانة</h2>
+
+    <div *ngIf="loading()">جارٍ التحميل...</div>
+
+    <form *ngIf="!loading()" (ngSubmit)="submit()" class="form">
+      <label>معرّف العميل (إن وُجد)</label>
+      <input name="customerId" [(ngModel)]="customerId" placeholder="UUID العميل - اختياري" />
+
+      <label>نوع الجهاز</label>
+      <input name="deviceType" [(ngModel)]="deviceType" placeholder="مثال: هاتف، لابتوب" required />
+
+      <label>العلامة التجارية</label>
+      <input name="brand" [(ngModel)]="brand" placeholder="مثال: Samsung" required />
+
+      <label>الموديل</label>
+      <input name="model" [(ngModel)]="model" placeholder="مثال: Galaxy S21" required />
+
+      <label>الرقم التسلسلي (اختياري)</label>
+      <input name="serialNumber" [(ngModel)]="serialNumber" placeholder="Serial" />
+
+      <label>وصف المشكلة</label>
+      <textarea name="problemDescription" [(ngModel)]="problemDescription" rows="5" required></textarea>
+
+      <div class="actions">
+        <button type="submit" [disabled]="saving()">{{ saving() ? 'جارٍ التحديث...' : 'حفظ' }}</button>
+        <a routerLink="/ad/orders" class="btn-cancel">إلغاء</a>
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+    </form>
+  </div>
+</div>

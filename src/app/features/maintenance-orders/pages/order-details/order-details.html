@@ -1,0 +1,89 @@
+<div class="edit-order" dir="rtl">
+  <div class="card">
+    <h2>عرض طلب الصيانة</h2>
+
+    <div *ngIf="loading()">جارٍ التحميل...</div>
+
+    <form *ngIf="!loading()" (ngSubmit)="submit()" class="form">
+   
+        <div class="logs " *ngIf="logs.length">
+  <h3>سجل الحالات</h3>
+
+  <div class="timeline">
+
+    <div class="timeline-item"
+         *ngFor="let l of logs; let last = last">
+
+      <div class="timeline-icon">
+        <i class="fas fa-check"></i>
+      </div>
+
+      <div class="timeline-line" *ngIf="!last"></div>
+
+      <div class="timeline-content">
+
+        <div class="timeline-header">
+          
+ <!-- <span class="status-badge " [ngClass]="getStatusClass(l.newStatus)">
+  {{ getStatusText(l.newStatus) }}
+</span> -->
+       <a
+  class="status-badge status-link"
+  [ngClass]="getStatusClass(l.newStatus)"
+  [routerLink]="['/maintenance-orders', l.id, 'status-details']"
+>
+  {{ getStatusText(l.newStatus) }}
+</a> </div>
+
+        <div class="timeline-notes" *ngIf="l.notes">
+          {{ l.notes }}
+        </div>
+
+        <!-- إذا كان لديك تاريخ -->
+        <!--
+        <div class="timeline-date">
+          {{ l.createdAt | date:'yyyy-MM-dd hh:mm a' }}
+        </div>
+        -->
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+   
+<div >
+      <label>العميل</label>
+      <input disabled  name="customerName" [(ngModel)]="customerName"   />
+
+      <label>نوع الجهاز</label>
+      <input disabled name="deviceType" [(ngModel)]="deviceType" placeholder="مثال: هاتف، لابتوب" required />
+
+      <label>العلامة التجارية</label>
+      <input disabled name="brand" [(ngModel)]="brand" placeholder="مثال: Samsung" required />
+
+      <label>الموديل</label>
+      <input disabled  name="model" [(ngModel)]="model" placeholder="مثال: Galaxy S21" required />
+
+      <label>الرقم التسلسلي (اختياري)</label>
+      <input disabled  name="serialNumber" [(ngModel)]="serialNumber" placeholder="Serial" />
+
+      <label>وصف المشكلة</label>
+      <textarea disabled    name="problemDescription" [(ngModel)]="problemDescription" rows="5" required></textarea>
+
+      <div class="actions">
+         <a routerLink="/ad/orders" class="btn-cancel">إلغاء</a>
+      </div>
+</div>
+         
+
+
+  
+       
+     </form>
+  
+   
+   
+  </div>
+</div>

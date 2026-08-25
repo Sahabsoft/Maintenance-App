@@ -1,0 +1,22 @@
+<div class="register" dir="rtl">
+	<form (ngSubmit)="submit()" class="register-form">
+		<div class="login-form-title">تسجيل حساب جديد</div> 
+
+		<label for="firstName">اسم الاول</label>
+		<input id="firstName" name="firstName" [(ngModel)]="createUser.firstName" />
+
+		<label for="lastname">اسم العائلة</label>
+		<input id="lastname" name="lastname" [(ngModel)]="createUser.lastName" />
+
+		<label for="email">البريد الإلكتروني</label>
+		<input id="email" name="email" type="email" [(ngModel)]="createUser.email" />
+
+		<label for="phone">رقم الهاتف</label>
+		<input id="phone" name="phone" type="tel" [(ngModel)]="createUser.phone" />
+
+		<label for="password">كلمة المرور</label>
+		<input id="password" name="password" type="password" [(ngModel)]="createUser.password" />
+
+		<button type="submit">تسجيل</button>
+	</form>
+</div>

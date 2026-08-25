@@ -1,0 +1,176 @@
+<div class="container py-5" dir="rtl">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="display-1 text-success">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                        <h2 class="fw-bold mt-3">
+                            متابعة طلب الزيارة
+                        </h2>
+
+                        <p class="text-muted">
+                            يمكنك متابعة حالة طلبك من خلال البيانات التالية
+                        </p>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label class="text-muted">رقم الطلب</label>
+                            <div class="fw-bold fs-5">
+                                 {{visit.visitNumber}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">حالة الطلب</label>
+
+                            <div>
+
+                                <span class="badge bg-primary"
+                                      *ngIf="visit.state==1">
+                                    جديد
+                                </span>
+
+                                <span class="badge bg-info"
+                                      *ngIf="visit.state==2">
+                                    تم الجدولة
+                                </span>
+
+                                <span class="badge bg-warning text-dark"
+                                      *ngIf="visit.state==3">
+                                    قيد التنفيذ
+                                </span>
+
+                                <span class="badge bg-success"
+                                      *ngIf="visit.state==4">
+                                    تم الانتهاء
+                                </span>
+
+                                <span class="badge bg-danger"
+                                      *ngIf="visit.state==5">
+                                    ملغى
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">اسم العميل</label>
+                            <div>{{visit.customerName}}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">رقم الهاتف</label>
+                            <div>{{visit.phone}}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">نوع الزيارة</label>
+                            <div>{{visit.visitType}}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-muted">تاريخ الطلب</label>
+                            <div>{{visit.createdAt | date:'dd/MM/yyyy hh:mm a'}}</div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="text-muted">العنوان</label>
+                            <div>{{visit.address}}</div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="text-muted">ملاحظات</label>
+                            <div>
+                                {{visit.notes || '-'}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-5">
+
+                    <h5 class="mb-4 text-center">
+                        مراحل الطلب
+                    </h5>
+
+                    <div class="progress mb-4" style="height:12px">
+
+                        <div class="progress-bar bg-success"
+                             [style.width.%]="progress">
+                        </div>
+
+                    </div>
+
+                    <div class="row text-center">
+
+                        <div class="col">
+                            <i class="fa-solid fa-file-circle-check fs-4"
+                               [class.text-success]="visit.state>=1"></i>
+
+                            <div class="small mt-2">
+                                تم الاستلام
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <i class="fa-solid fa-calendar-days fs-4"
+                               [class.text-success]="visit.state>=2"></i>
+
+                            <div class="small mt-2">
+                                تم الجدولة
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <i class="fa-solid fa-screwdriver-wrench fs-4"
+                               [class.text-success]="visit.state>=3"></i>
+
+                            <div class="small mt-2">
+                                التنفيذ
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <i class="fa-solid fa-circle-check fs-4"
+                               [class.text-success]="visit.state>=4"></i>
+
+                            <div class="small mt-2">
+                                تم الانتهاء
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-5">
+
+                        <button
+                            class="btn btn-primary"
+                            routerLink="/booking">
+                            الصفحة الرئيسية
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

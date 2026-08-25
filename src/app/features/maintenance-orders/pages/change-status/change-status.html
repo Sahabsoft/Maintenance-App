@@ -1,0 +1,82 @@
+<div class="change-status" dir="rtl">
+  <div class="card">
+    <h2>تغيير حالة الطلب</h2>
+
+    <div *ngIf="loading()">جارٍ التحميل...</div>
+
+    <form *ngIf="!loading()" (ngSubmit)="submit()" class="form">
+      <div class="current">الحالة الحالية: <strong>{{ getStatusText(currentStatus) }}</strong></div>
+
+      <label>الحالة الجديدة</label>
+      <select name="newStatus" [(ngModel)]="newStatus">
+        <option [ngValue]="null">-- اختر الحالة --</option>
+        <option *ngFor="let s of statuses" [value]="s.value">{{ s.label }}</option>
+      </select>
+
+      <label>ملاحظات</label>
+      <textarea name="notes" [(ngModel)]="notes" rows="4" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+<label>صور الجهاز</label>
+
+<div class="photo-actions">
+
+  <label class="photo-btn">
+    📷 التقاط صورة
+    <input
+      type="file"
+      accept="image/*"
+      capture="environment"
+      (change)="onFilesSelected($event)"
+      hidden
+    />
+  </label>
+
+  <label class="photo-btn">
+    🖼️ اختيار من المعرض
+    <input
+      type="file"
+      accept="image/*"
+      multiple
+      (change)="onFilesSelected($event)"
+      hidden
+    />
+  </label>
+
+</div>
+<div class="selected-files" *ngIf="files.length">
+ <div class="selected-files" *ngIf="files.length">
+
+  <div
+    class="file-item"
+    *ngFor="let file of files; let i = index">
+
+    <img
+      *ngIf="file.type.startsWith('image/')"
+      class="preview"
+      [src]="getPreviewUrl(file)"
+      [alt]="file.name"
+    />
+
+    <span class="file-name">
+      {{ file.name }}
+    </span>
+
+    <button
+      type="button"
+      class="remove"
+      (click)="removeFile(i)">
+      ×
+    </button>
+
+  </div>
+
+</div>
+</div>
+      <div class="actions">
+        <button type="submit" [disabled]="saving()">{{ saving() ? 'جارٍ الحفظ...' : 'حفظ التغيير' }}</button>
+        <a routerLink="/ad/orders" class="btn-cancel">إلغاء</a>
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+    </form>
+  </div>
+</div>

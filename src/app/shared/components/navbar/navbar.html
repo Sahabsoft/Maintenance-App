@@ -1,0 +1,25 @@
+<nav class="navbar" dir="rtl">
+  <div class="brand">
+    <a routerLink="/ad" class="brand-link">حياة الامان - صيانة الكاميرات</a>
+  </div>
+
+  <div class="nav-links">
+    <a routerLink="/ad/orders" class="nav-item">الطلبات</a>
+    <a routerLink="/ad/orders/new" class="nav-item">إضافة طلب</a>
+    <a routerLink="/ad/customers" class="nav-item">العملاء</a>
+    <a routerLink="/ad/dashboard" class="nav-item">لوحة التحكم</a>
+    <a routerLink="/ad/customerVisits" class="nav-item">قائمة الزيارات</a>
+    <a routerLink="/ad/scheduledVisit" class="nav-item">قائمة الزيارات خاصتي</a>
+     
+  </div>
+
+  <div class="nav-actions">
+    <ng-container *ngIf="auth.isLoggedIn(); else loggedOut">
+      <button class="btn btn-logout" (click)="logout()">خروج</button>
+    </ng-container>
+    <ng-template #loggedOut>
+      <a routerLink="/ad/login" class="btn btn-login">دخول</a>
+      <a routerLink="/ad/register" class="btn btn-register">تسجيل</a>
+    </ng-template>
+  </div>
+</nav>

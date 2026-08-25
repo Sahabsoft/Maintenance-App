@@ -1,0 +1,96 @@
+<div class="container py-5">
+ <div class="filters">
+
+        <input
+            type="text"
+            [(ngModel)]="filter.search"
+            placeholder="بحث باسم العميل أو الهاتف">
+
+        
+
+         
+        <button (click)="search()">
+            بحث
+        </button>
+
+        <a
+            routerLink="/booking"
+            class="btn">
+            إضافة زيارة
+        </a>
+
+    </div>
+
+    <h2 class="text-center mb-4">
+        نتائج البحث
+    </h2>
+
+    <div *ngIf="loading" class="text-center">
+        جارٍ البحث...
+    </div>
+
+    <div *ngIf="!loading && customerVisits.length == 0"
+         class="alert alert-warning text-center">
+
+        لا توجد طلبات.
+
+    </div>
+    <table class="table" *ngIf="customerVisits.length>0">
+
+        <thead>
+
+            <tr>
+
+                <th>رقم الزيارة</th>
+                <th>اسم العميل</th>
+                <th>الهاتف</th>
+                <th>العنوان</th>
+                <th>النوع</th>
+                <th>الحالة</th>
+                <th>ملاحظات</th>
+                <th width="180">الإجراءات</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let c of customerVisits">
+
+                <td>{{c.visitNumber}}</td>
+
+                <td>{{c.customerName}}</td>
+
+                <td>{{c.phone}}</td>
+
+                <td>{{c.address}}</td>
+
+                <td>{{c.visitType}}</td>
+
+               <td>
+    <span class="state-badge" [ngClass]="getStateClass(c.state)">
+        {{ getStateText(c.state) }}
+    </span>
+</td>
+
+                <td>{{c.notes}}</td>
+
+                <td>
+
+                    <a
+                        [routerLink]="['/track-request', c.id]">
+                        عرض
+                    </a>
+
+                      
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+   
+</div>

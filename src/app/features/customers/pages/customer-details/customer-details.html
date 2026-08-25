@@ -1,0 +1,28 @@
+<div class="container" dir="rtl">
+  <div class="card">
+    <h2>تفاصيل العميل</h2>
+
+    <div *ngIf="customerLoading">جارٍ التحميل...</div>
+    <div *ngIf="!customerLoading">
+      <div><strong>الاسم:</strong> {{ customer.name }}</div>
+      <div><strong>الهاتف:</strong> {{ customer.phone }}</div>
+      <div><strong>العنوان:</strong> {{ customer.address }}</div>
+      <div><strong>ملاحظات:</strong> {{ customer.notes }}</div>
+
+      <div style="margin-top:1rem">
+        <a [routerLink]="['/ad/customers', customer.id, 'edit']">تعديل العميل</a>
+      </div>
+ 
+      <h3 style="margin-top:1rem">أجهزة/طلبات الصيانة لهذا العميل</h3>
+      <div *ngIf="orders.length; else noOrders">
+        <ul>
+          <li *ngFor="let o of orders">
+            <div><strong> <a [routerLink]="['/ad/orders', o.id,'details' ]">{{o.orderNumber}}</a></strong> — {{ o.deviceType }} / {{ o.brand }} / {{ o.model }}</div>
+            <div>الحالة: {{ o.status }}</div>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noOrders>لا توجد أجهزة أو طلبات مسجلة</ng-template>
+    </div>
+  </div>
+</div>

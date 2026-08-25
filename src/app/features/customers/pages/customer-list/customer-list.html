@@ -1,0 +1,35 @@
+<div class="container" dir="rtl">
+  <h2>قائمة العملاء</h2>
+
+  <div *ngIf="loading">جارٍ التحميل...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="actions">
+    <a routerLink="/ad/customers/new" class="btn">إضافة عميل</a>
+  </div>
+
+  <table class="table" *ngIf="customers.length">
+    <thead>
+      <tr>
+        <th>الاسم</th>
+        <th>الهاتف</th>
+        <th>عمليات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers">
+        <td>{{ c.name }}</td>
+        <td>{{ c.phone }}</td>
+        <td>
+          <a [routerLink]="['/ad/customers', c.id]">عرض</a>
+          |
+          <a [routerLink]="['/ad/customers', c.id, 'edit']">تعديل</a>
+          |
+          <a (click)="remove(c.id)">حذف</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!customers.length && !loading">لا توجد نتائج</div>
+</div>

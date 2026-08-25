@@ -1,0 +1,26 @@
+<div class="container" dir="rtl">
+  <div class="card">
+    <h2>{{ id ? 'تعديل عميل' : 'إضافة عميل' }}</h2>
+
+    <div *ngIf="loading()">جارٍ التحميل...</div>
+    <form *ngIf="!loading()" (ngSubmit)="submit()" class="form">
+      <label>الاسم</label>
+      <input name="name" [(ngModel)]="name" required />
+
+      <label>الهاتف</label>
+      <input name="phone" [(ngModel)]="phone" required />
+
+      <label>العنوان</label>
+      <input name="address" [(ngModel)]="address" />
+
+      <label>ملاحظات</label>
+      <textarea name="notes" [(ngModel)]="notes" rows="3"></textarea>
+
+      <div class="actions">
+        <button type="submit" [disabled]="saving()">{{ saving() ? 'جارٍ الحفظ...' : 'حفظ' }}</button>
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+    </form>
+  </div>
+</div>

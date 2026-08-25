@@ -1,0 +1,51 @@
+<div class="add-order" dir="rtl">
+  <div class="card">
+    <h2>إضافة طلب صيانة جديد</h2>
+ <div class="actions">
+    <a (click)="addCustomer()" class="btn">إضافة عميل</a>
+  </div>
+
+    <form (ngSubmit)="submit()" class="form">
+      <label>العميل (اختياري)</label>
+      <div *ngIf="loading()">جارٍ تحميل قائمة العملاء...</div>
+      <div *ngIf="!loading()">
+        <ng-select
+      [items]="customers"
+      bindValue="id"
+      bindLabel="name"
+      [(ngModel)]="customerId"
+      [searchFn]="this['searchCustomer']">
+
+    <ng-template ng-option-tmp let-item="item">
+        {{ item.name }} — {{ item.phone }}
+    </ng-template>
+
+</ng-select>
+      </div>
+      <label>نوع الجهاز</label>
+      <input name="deviceType" [(ngModel)]="deviceType" placeholder="مثال: هاتف، لابتوب" required />
+
+      <label>العلامة التجارية</label>
+      <input name="brand" [(ngModel)]="brand" placeholder="مثال: Samsung" required />
+
+      <label>الموديل</label>
+      <input name="model" [(ngModel)]="model" placeholder="مثال: Galaxy S21" required />
+
+      <label>الرقم التسلسلي (اختياري)</label>
+      <input name="serialNumber" [(ngModel)]="serialNumber" placeholder="Serial" />
+
+      <label>وصف المشكلة</label>
+      <textarea name="problemDescription" [(ngModel)]="problemDescription" rows="5" required></textarea>
+      <!-- supplierName -->
+      <label>اسم المورد (اختياري)</label>
+      <input name="supplierName" [(ngModel)]="supplierName" placeholder="Supplier Name" />
+
+      <div class="actions">
+        <button type="submit" [disabled]="saving">{{ saving ? 'جارٍ الحفظ...' : 'إضافة' }}</button>
+        <a routerLink="/ad/orders" class="btn-cancel">إلغاء</a>
+      </div>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </form>
+  </div>
+</div>
