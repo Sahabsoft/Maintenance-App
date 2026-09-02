@@ -11,7 +11,7 @@ import { forkJoin } from 'rxjs';
 })
 export class MaintenanceOrderService {
   constructor(private api: ApiService ,private jwtL:JwtService) {}
-
+files?: File[]
   getOrders(filter: MaintenanceOrderFilter) {
     let params = new HttpParams()
       .set('page', String(filter.page))
@@ -59,12 +59,7 @@ getMaintenanceLogById(id: string) {
     return this.api.put<any>(`/maintenance-orders/${id}`, payload);
   }
 
- changeStatus(
-  id: string,
-  status: number,
-  notes: string,
-  files: File[]
-) {
+ changeStatus(  id: string,  status: number,  notes?: string,  files?: File[]) {
   const formData = new FormData();
 
   const token = localStorage.getItem('auth_token');
@@ -76,17 +71,37 @@ getMaintenanceLogById(id: string) {
   if (notes?.trim()) {
     formData.append('notes', notes.trim());
   }
+ files?.forEach(file => {
+    formData.append('files', file);
+  });
 
-  files.forEach(file => {
+  return this.api.post<any>(    `/maintenance-orders/${id}/status`,    formData  );
+} 
+updatestatus(  id: string,  status: number,  notes?: string,  files?: File[]) {
+  const formData = new FormData();
+
+  const token = localStorage.getItem('auth_token');
+  const userId = this.jwtL.decodeToken(token || '').sub;
+
+  formData.append('status', String(status));
+  formData.append('userId', userId);
+
+  if (notes?.trim()) {
+    formData.append('notes', notes.trim());
+  }
+ files?.forEach(file => {
     formData.append('files', file);
   });
 
   return this.api.put<any>(
-    `/maintenance-orders/${id}/status`,
+    `/maintenance-orders/${id}/updatestatus`,
     formData
   );
 }
-getLogs(id: string) {
+removeFile(id: string) {
+  return this.api.delete<any>(`/maintenance-orders/${id}/removeFile`);
+  }
+  getLogs(id: string) {
   return this.api.get<any>(`/maintenance-orders/${id}/logs`).pipe(
     map((resp: any) => (resp?.data ?? resp ?? []) as MaintenanceLogResponse[])
   );

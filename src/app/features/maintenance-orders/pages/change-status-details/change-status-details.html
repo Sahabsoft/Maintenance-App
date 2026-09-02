@@ -25,8 +25,8 @@
         الحالة الحالية:
 
         <strong>
-          {{ currentStatus !== null
-            ? getStatusText(currentStatus)
+          {{ log.oldStatus !== null
+            ? getStatusText(log.oldStatus)
             : 'غير محددة'
           }}
         </strong>
@@ -41,7 +41,7 @@
       <select
         id="newStatus"
         name="newStatus"
-        [(ngModel)]="newStatus"
+        [(ngModel)]="log.newStatus"
         [disabled]="saving()"
       >
 
@@ -67,7 +67,7 @@
       <textarea
         id="notes"
         name="notes"
-        [(ngModel)]="notes"
+        [(ngModel)]="log.notes"
         rows="4"
         placeholder="ملاحظات إضافية (اختياري)"
         [disabled]="saving()"
@@ -119,42 +119,21 @@
 
       <!-- Selected Files -->
       <div
-        class="selected-files"
-        *ngIf="files.length > 0"
+        class="selected-files" 
       >
 
-        <div
-          class="file-item"
-          *ngFor="let file of files; let i = index"
-        >
+    <div class="file-item" *ngFor="let image of images; let i = index">
+  <img [src]="image.url" width="150" />
+  <span>{{ image.name }}</span>
 
-          <!-- Image Preview -->
-          <img
-            *ngIf="file.type.startsWith('image/')"
-            class="preview"
-            [src]="getPreviewUrl(file)"
-            [alt]="file.name"
-          />
-
-
-          <!-- File Name -->
-          <span class="file-name">
-            {{ file.name }}
-          </span>
-
-
-          <!-- Remove -->
-          <button
-            type="button"
-            class="remove"
-            (click)="removeFile(i)"
-            [disabled]="saving()"
-            title="حذف الملف"
-          >
-            ×
-          </button>
-
-        </div>
+  <button
+    type="button"
+    class="remove"
+    (click)="removePreview(i)"
+    [disabled]="saving()">
+    ×
+  </button>
+</div>
 
       </div>
 

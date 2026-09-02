@@ -7,7 +7,7 @@
  oldStatus: number;
  newStatus: number;
  notes?: string; 
-fileLogs?: MaintenanceLogFileResponse[];
+files?: MaintenanceLogFileResponse[];
 }
 export interface MaintenanceLogFileResponse {
 id: string;

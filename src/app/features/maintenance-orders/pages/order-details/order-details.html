@@ -30,8 +30,8 @@
        <a
   class="status-badge status-link"
   [ngClass]="getStatusClass(l.newStatus)"
-  [routerLink]="['/maintenance-orders', l.id, 'status-details']"
->
+  [routerLink]="['/ad/orders', l.id, 'status-details']"
+  [state]="{ orderData: l }">
   {{ getStatusText(l.newStatus) }}
 </a> </div>
 

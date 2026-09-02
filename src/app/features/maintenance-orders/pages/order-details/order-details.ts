@@ -76,6 +76,7 @@ export class OrderDetails {
     this.service.getLogs(this.id).subscribe({
       next: (logsRes: MaintenanceLogResponse[]) => {
         this.logs = Array.isArray(logsRes) ? [...logsRes] : [];
+        console.log('this.logs', this.logs);
         this.cdr.detectChanges();
       },
       error: () => {
