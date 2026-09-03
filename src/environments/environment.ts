@@ -3,5 +3,5 @@ export const environment = {
   //  apiUrl: 'https://localhost:7026/api',
   //  fileUrl: 'https://localhost:7026/files'
   apiUrl: 'https://api.hayatalaman.com/api',
-     fileUrl: 'https://localhost:7026/files'
+     fileUrl: 'https://api.hayatalaman.com/files'
 };
