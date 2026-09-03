@@ -175,7 +175,30 @@ removePreview(index: number): void {
 
     this.saving.set(true);
     this.error.set('');
+ if(this.log.id === undefined || this.log.id === null || this.log.id === ''){
+   this.service.changeStatus(      this.log.id,      this.log.newStatus,      this.log.notes,      this.files    ).subscribe({
 
+      next: () => {
+
+        this.saving.set(true);
+
+        this.router.navigate([
+          '/orders'
+        ]);
+      },
+
+      error: (err) => {
+
+        this.saving.set(false);
+
+        this.error.set(
+          err?.error?.message ||
+          err?.message ||
+          'خطأ أثناء تغيير الحالة'
+        );
+      },
+    });
+}else{
     this.service.updatestatus(      this.log.id,      this.log.newStatus,      this.log.notes,      this.files    ).subscribe({
 
       next: () => {
@@ -198,7 +221,7 @@ removePreview(index: number): void {
         );
       },
     });
-  }
+  }}
 
   cancel(): void {
 
