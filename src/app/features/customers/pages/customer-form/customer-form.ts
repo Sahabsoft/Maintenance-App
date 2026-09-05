@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { CustomerService } from '../../services/CustomerService';
 import { NotificationService } from '../../../../core/services/notification.service';
-
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-customer-form',
   imports: [FormsModule, NgIf],
@@ -23,11 +23,13 @@ export class CustomerForm {
   address = '';
   notes = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: CustomerService,private notification: NotificationService
-  ) {}
+constructor(
+  private route: ActivatedRoute,
+  private router: Router,
+  private service: CustomerService,
+  private notification: NotificationService,
+  private dialogRef: MatDialogRef<CustomerForm>
+){}
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -51,26 +53,48 @@ export class CustomerForm {
     }
   }
 
-  submit() {
-    this.saving.set(true);
-    this.error.set('');
-    const payload: any = {
-      name: this.name,
-      phone: this.phone,
-      address: this.address || null,
-      notes: this.notes || null,
-    };
-    const obs = this.id ? this.service.update(this.id, payload) : this.service.create(payload);
-    obs.subscribe({
-      next: () => {
-        this.saving.set(false);
-          this.notification.success( )
-      },
-      error: (err: any) => {
-        this.saving.set(false);
-        this.error.set(err?.message || 'خطأ عند الحفظ');
-        this.notification.error(err?.message || 'خطأ عند الحفظ');
-      },
-    });
-  }
+submit() {
+
+  this.saving.set(true);
+  this.error.set('');
+
+  const payload: any = {
+    name: this.name,
+    phone: this.phone,
+    address: this.address || null,
+    notes: this.notes || null,
+  };
+
+  const obs = this.id
+    ? this.service.update(this.id, payload)
+    : this.service.create(payload);
+
+  obs.subscribe({
+
+    next: (result: any) => {
+
+      this.saving.set(false);
+
+      this.notification.success();
+
+      // في حالة الإضافة من Dialog
+      this.dialogRef.close(result);
+
+    },
+
+    error: (err: any) => {
+
+      this.saving.set(false);
+
+      this.error.set(err?.message || 'خطأ عند الحفظ');
+
+      this.notification.error(
+        err?.message || 'خطأ عند الحفظ'
+      );
+
+    },
+
+  });
+
+}
 }
