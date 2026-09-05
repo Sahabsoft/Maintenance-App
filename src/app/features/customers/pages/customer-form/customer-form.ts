@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, Optional } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -28,7 +28,8 @@ constructor(
   private router: Router,
   private service: CustomerService,
   private notification: NotificationService,
-  private dialogRef: MatDialogRef<CustomerForm>
+   @Optional()
+  private dialogRef?: MatDialogRef<CustomerForm>
 ){}
 
   ngOnInit() {
@@ -78,7 +79,7 @@ submit() {
       this.notification.success();
 
       // في حالة الإضافة من Dialog
-      this.dialogRef.close(result);
+      this.dialogRef?.close(result);
 
     },
 

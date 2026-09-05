@@ -10,12 +10,13 @@
       <div *ngIf="loading()">جارٍ تحميل قائمة العملاء...</div>
       <div *ngIf="!loading()">
         <ng-select
+        name="customerId"
       [items]="customers"
       bindValue="id"
       bindLabel="name"
       [(ngModel)]="customerId"
-      [searchFn]="this['searchCustomer']">
-
+     >
+ <!-- [searchFn]="this['searchCustomer']" -->
     <ng-template ng-option-tmp let-item="item">
         {{ item.name }} — {{ item.phone }}
     </ng-template>

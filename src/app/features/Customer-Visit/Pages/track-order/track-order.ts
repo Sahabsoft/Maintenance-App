@@ -26,6 +26,7 @@ loading = false;
   totalPages = 0;
   totalCount = 0;
 search() {
+  if(this.filter.search === undefined || this.filter.search === null)return;
 
     this.loading = true; 
     this.service

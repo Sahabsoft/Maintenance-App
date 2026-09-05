@@ -8,7 +8,7 @@ import {
 
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 
 import { MaintenanceOrderService } from '../../services/MaintenanceOrderService';
 import { CustomerService } from '../../../customers/services/CustomerService';
@@ -33,6 +33,7 @@ import { Subject, takeUntil } from 'rxjs';
     CommonModule,
     RouterLink,
     NgOptionTemplateDirective,
+    NgIf,
     NgSelectComponent
   ],
   templateUrl: './add-order.html',
@@ -75,8 +76,7 @@ export class AddOrder implements OnInit, OnDestroy {
     // تحديث القائمة عند إضافة أو تعديل أو حذف عميل
     this.cs.customerAdded$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-
+      .subscribe(() => { 
         this.loadCustomers();
 
       });
@@ -97,8 +97,7 @@ export class AddOrder implements OnInit, OnDestroy {
 
     this.cs.list().subscribe({
 
-      next: (res: any) => {
-
+      next: (res: any) => {  
         this.customers =
           Array.isArray(res)
             ? res
